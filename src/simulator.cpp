@@ -6,7 +6,7 @@ Simulator::Simulator() : window_ {}, renderer_ {}, bodies_ {}, physics_engine_ {
     window_.Init();
     renderer_.Init();
     bodies_.push_back(std::make_shared<Body>(glm::vec2(0.0f, 0.0f), glm::vec2(0.0f, 0.0f), 1.986e30f));
-    bodies_.push_back(std::make_shared<Body>(glm::vec2(0.4f, 0.0f), glm::vec2(0.0f, 0.10f), 5.9722e10f));
+    bodies_.push_back(std::make_shared<Body>(glm::vec2(0.4f, 0.0f), glm::vec2(0.0f, 0.10f), 5.9722e24f));
 }
 
 void Simulator::run() {

@@ -16,7 +16,7 @@ void PhysicsEngine::ApplyOrbitalForces(std::vector<Body::Ptr> bodies) {
             }
             glm::vec2 direction = other->GetPosition() - body->GetPosition();
             float distance = glm::length(direction) * earth_sun_distance;
-            float force = kG_ * body->GetMass() * other->GetMass() / (distance * distance);
+            float force = (kG_ * body->GetMass()) * (other->GetMass() / (distance * distance));
             glm::vec2 forceVector = force * glm::normalize(direction);
             body->ApplyForce(forceVector);
         }
