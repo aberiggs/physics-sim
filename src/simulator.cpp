@@ -5,8 +5,8 @@
 Simulator::Simulator() : window_ {}, renderer_ {}, bodies_ {}, physics_engine_ {}, camera_ {} {
     window_.Init();
     renderer_.Init();
-    bodies_.push_back({glm::vec2(0.0f, 0.0f), glm::vec2(0.0f, 0.0f), 1.986e30f});
-    bodies_.push_back({glm::vec2(0.4f, 0.0f), glm::vec2(0.0f, 0.10f), 5.9722e10f});
+    bodies_.push_back(std::make_shared<Body>(glm::vec2(0.0f, 0.0f), glm::vec2(0.0f, 0.0f), 1.986e30f));
+    bodies_.push_back(std::make_shared<Body>(glm::vec2(0.4f, 0.0f), glm::vec2(0.0f, 0.10f), 5.9722e10f));
 }
 
 void Simulator::run() {
@@ -20,8 +20,9 @@ void Simulator::run() {
 
         physics_engine_.ApplyForces(bodies_, deltaTime);
         for (auto& body : bodies_) {
-            body.Update(deltaTime);
+            body->Update(deltaTime);
         }
+
         renderer_.Render(bodies_);
         window_.SwapBuffers();
         window_.PollEvents();

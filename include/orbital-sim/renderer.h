@@ -14,7 +14,7 @@ public:
 
     void Init();
 
-    void Render(const std::vector<Body>& bodies);
+    void Render(std::vector<Body::Ptr> bodies);
 
     std::vector<float> GenerateCircleVertices(float radius, int numVertices);
 

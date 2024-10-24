@@ -1,8 +1,9 @@
 #include "orbital-sim/renderer.h" // self
 
 #include "glad/glad.h"
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
 #include <iostream>
 
 Renderer::Renderer() : vao_ {}, vbo_ {}, shaders_ {} {
@@ -24,24 +25,13 @@ void Renderer::Init() {
     glEnableVertexAttribArray(0);
 }
 
-void Renderer::Render(const std::vector<Body>& bodies) {
+void Renderer::Render(const std::vector<Body::Ptr> bodies) {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     auto shader = shaders_[0]; // Basic shader
-
     for (const auto& body : bodies) {
-        shader.Use();
-        glBindVertexArray(vao_);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-
-        // Apply transformations
-        auto model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(body.GetPosition(), 0.0f));
-
-        shader.SetMat4("model", glm::value_ptr(model));
-
-        glDrawArrays(GL_TRIANGLE_FAN, 0, 66); // TODO: Fix magic #
+        body->Draw(shader);
     }
 }
 

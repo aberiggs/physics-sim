@@ -6,6 +6,7 @@
 #include "orbital-sim/physics_engine.h"
 #include "orbital-sim/camera.h"
 
+#include <memory>
 #include <vector>
 
 class Simulator {
@@ -17,7 +18,7 @@ public:
 private:
     Window window_;
     Renderer renderer_;
-    std::vector<Body> bodies_;
+    std::vector<Body::Ptr> bodies_;
     PhysicsEngine physics_engine_;
     Camera camera_;
 };

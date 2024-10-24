@@ -1,16 +1,20 @@
 #pragma once
 
+#include "orbital-sim/render_object.h"
 #include "glm/glm.hpp"
 
-class Body {
+#include <memory>
+
+class Body : public RenderObject {
 public:
+    typedef std::shared_ptr<Body> Ptr;
+
     Body(const glm::vec2& position, const glm::vec2& velocity, float mass);
+    void Draw(Shader shader) override;
     void Update(float dt);
     void ApplyForce(const glm::vec2& force);
-    glm::vec2 GetPosition() const;
     float GetMass() const { return mass_; }
 private:
-    glm::vec2 position_;
     glm::vec2 velocity_;
     glm::vec2 force_;
     float mass_;
