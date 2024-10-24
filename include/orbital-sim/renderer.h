@@ -1,9 +1,14 @@
 #pragma once
 
 #include "orbital-sim/body.h"
+#include "orbital-sim/shader.h"
 #include <vector>
 
+
 class Renderer {
+// Could introduce an enum for shader types & a map for their storage
+// Along with this, we could have enum for the different types of bodies (e.g. planet, asteroid, etc.) 
+// and a map for vbos/vaos for each type of body
 public:
     Renderer();
 
@@ -16,5 +21,5 @@ public:
 private:
     unsigned int vao_;
     unsigned int vbo_;
-    unsigned int shader_;
+    std::vector<Shader> shaders_;
 };

@@ -9,8 +9,11 @@ Shader::Shader() : id_ {} {
     const char* vertexShaderSource = R"(
         #version 330 core
         layout (location = 0) in vec2 aPos;
+
+        uniform mat4 model;
+
         void main() {
-            gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
+            gl_Position = model * vec4(aPos.x, aPos.y, 0.0, 1.0);
         }
     )";
 
@@ -18,7 +21,7 @@ Shader::Shader() : id_ {} {
         #version 330 core
         out vec4 FragColor;
         void main() {
-            FragColor = vec4(1.0, 0.5, 0.2, 1.0);
+            FragColor = vec4(1.0, 1.0, 0.3, 1.0);
         }
     )";
 
@@ -36,4 +39,12 @@ Shader::Shader() : id_ {} {
     // Delete shaders since they are already linked to the program
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+}
+
+void Shader::Use() {
+    glUseProgram(id_);
+}
+
+void Shader::SetMat4(const std::string& name, const float* value) const {
+    glUniformMatrix4fv(glGetUniformLocation(id_, name.c_str()), 1, GL_FALSE, value);
 }

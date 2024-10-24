@@ -4,7 +4,7 @@
 
 class Shader {
 public:
-    Shader(); // Basic default shader
+    Shader(); // Basic shader
     Shader(const std::string& vertexPath, const std::string& fragmentPath);
     void Use();
     void SetBool(const std::string& name, bool value) const;

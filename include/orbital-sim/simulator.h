@@ -9,9 +9,11 @@
 #include <vector>
 
 class Simulator {
+// Maybe introduce some options?
 public:
     Simulator();
     void run();
+
 private:
     Window window_;
     Renderer renderer_;
