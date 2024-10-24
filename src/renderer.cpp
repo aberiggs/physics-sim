@@ -16,8 +16,8 @@ void Renderer::Init() {
     glBindVertexArray(vao_);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_);
 
-    std::vector<float> vertices = GenerateCircleVertices(0.05f, 64);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_DYNAMIC_DRAW);
+    std::vector<float> vertices = GenerateCircleVertices(0.01f, 64);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 
     // Position attribute
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);

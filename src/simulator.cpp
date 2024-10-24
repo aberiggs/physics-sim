@@ -5,7 +5,8 @@
 Simulator::Simulator() : window_ {}, renderer_ {}, bodies_ {}, physics_engine_ {}, camera_ {} {
     window_.Init();
     renderer_.Init();
-    bodies_.push_back({glm::vec2(0.3f, 0.0f), glm::vec2(-0.1f, 0.0f), 1.0f});
+    bodies_.push_back({glm::vec2(0.0f, 0.0f), glm::vec2(0.0f, 0.0f), 1.986e30f});
+    bodies_.push_back({glm::vec2(0.4f, 0.0f), glm::vec2(0.0f, 0.10f), 5.9722e10f});
 }
 
 void Simulator::run() {
@@ -17,7 +18,7 @@ void Simulator::run() {
 
         // std::cout << "FPS: " << 1.0f / deltaTime << std::endl;
 
-        // physicsEngine.applyForces(bodies, deltaTime);
+        physics_engine_.ApplyForces(bodies_, deltaTime);
         for (auto& body : bodies_) {
             body.Update(deltaTime);
         }

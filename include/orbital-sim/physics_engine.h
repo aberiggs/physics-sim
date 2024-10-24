@@ -7,4 +7,9 @@
 class PhysicsEngine {
 public:
     void ApplyForces(std::vector<Body>& bodies, float dt);
+private:
+    void ApplyOrbitalForces(std::vector<Body>& bodies, float dt);
+
+    const float kG_ = 6.67430e-11f;
+
 };
