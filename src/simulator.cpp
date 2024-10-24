@@ -18,12 +18,18 @@ void Simulator::run() {
 
         // std::cout << "FPS: " << 1.0f / deltaTime << std::endl;
 
-        physics_engine_.ApplyForces(bodies_, deltaTime);
+        // Simulate
+        physics_engine_.ApplyForces(bodies_);
         for (auto& body : bodies_) {
             body->Update(deltaTime);
         }
 
-        renderer_.Render(bodies_);
+        // Render
+        std::vector<RenderObject::Ptr> render_queue; // Objects we'd like to render
+        for (auto& body : bodies_) {
+            render_queue.push_back(body);
+        }
+        renderer_.Render(render_queue);
         window_.SwapBuffers();
         window_.PollEvents();
     }

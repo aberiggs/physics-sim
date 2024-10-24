@@ -1,7 +1,7 @@
-#include "orbital-sim/render_object.h"
+#include "orbital-sim/render_object.h" // self
 
 #include "glad/glad.h"
-#include <glm/gtc/matrix_transform.hpp>
+#include "glm/gtc/matrix_transform.hpp"
 
 #include <iostream>
 #include <vector>
@@ -23,7 +23,6 @@ RenderObject::RenderObject(const glm::vec2& position, Type type) : position_ {po
     glBindBuffer(GL_ARRAY_BUFFER, vbo_);
 
     if (type_ == Type::kCircle) {
-        std::cout << "Found circle\n";
         std::vector<float> vertices = GenerateCircleVertices(0.01f, 64);
         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
         num_vertices_ = vertices.size() / 2;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <string>
 
 class Shader {
@@ -15,5 +16,5 @@ public:
     void SetVec4(const std::string& name, float x, float y, float z, float w) const;
     void SetMat4(const std::string& name, const float* value) const;
 private:
-    unsigned int id_;
+    uint32_t id_;
 };

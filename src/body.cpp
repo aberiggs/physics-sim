@@ -10,17 +10,8 @@
 Body::Body(const glm::vec2& position, const glm::vec2& velocity, float mass) : RenderObject(position, Type::kCircle), velocity_ {velocity}, force_ {glm::vec2(0.0f, 0.0f)}, mass_ {mass} {
 }
 
-void Body::Draw(Shader shader) {
-    shader.Use();
-    glBindVertexArray(vao_);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-
-    // Apply transformations
-    auto model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(position_, 0.0f));
-
-    shader.SetMat4("model", glm::value_ptr(model));
-
+void Body::Draw() {
+    glBindVertexArray(vao_); // Could make this conditional for batching
     glDrawArrays(GL_TRIANGLE_FAN, 0, num_vertices_); 
     glBindVertexArray(0); // Unbind VAO
 }

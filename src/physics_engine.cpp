@@ -2,11 +2,11 @@
 
 #include <iostream>
 
-void PhysicsEngine::ApplyForces(std::vector<Body::Ptr> bodies, float dt) {
-    ApplyOrbitalForces(bodies, dt);
+void PhysicsEngine::ApplyForces(std::vector<Body::Ptr> bodies) {
+    ApplyOrbitalForces(bodies);
 }
 
-void PhysicsEngine::ApplyOrbitalForces(std::vector<Body::Ptr> bodies, float dt) {
+void PhysicsEngine::ApplyOrbitalForces(std::vector<Body::Ptr> bodies) {
     float earth_sun_distance = 148.79e9f; // Temp value for testing
 
     for (auto body : bodies) {

@@ -2,6 +2,8 @@
 
 #include "glad/glad.h"
 
+#include <iostream>
+
 Shader::Shader() : id_ {} {
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);

@@ -10,7 +10,7 @@ public:
     typedef std::shared_ptr<Body> Ptr;
 
     Body(const glm::vec2& position, const glm::vec2& velocity, float mass);
-    void Draw(Shader shader) override;
+    void Draw() override;
     void Update(float dt);
     void ApplyForce(const glm::vec2& force);
     float GetMass() const { return mass_; }

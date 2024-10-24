@@ -1,6 +1,5 @@
 #include "orbital-sim/window.h" // self
 
-
 #include <iostream>
 
 bool Window::Init() {
@@ -8,7 +7,15 @@ bool Window::Init() {
         return false;
     }
 
-    window_ = glfwCreateWindow(800, 600, "Orbital Simulator", NULL, NULL);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // For MacOS 
+#endif
+
+    window_ = glfwCreateWindow(800, 800, "Orbital Simulator", NULL, NULL);
     if (!window_) {
         std::cout << "Failed to create GLFW window\n";
         glfwTerminate();
@@ -16,16 +23,17 @@ bool Window::Init() {
     }
 
     glfwMakeContextCurrent(window_);
-    glfwSetFramebufferSizeCallback(window_, [](GLFWwindow* window, int width, int height) {
-        glViewport(0, 0, width, height);
-    });
-     
+    
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD\n";
         return false;
     } 
-    
+
+    glfwSetFramebufferSizeCallback(window_, [](GLFWwindow* window, int width, int height) {
+        glViewport(0, 0, width, height);
+    });
+
     // glfwSwapInterval(0); // disable vsync
 
     return true;
