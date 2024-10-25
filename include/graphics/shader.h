@@ -1,12 +1,17 @@
 #pragma once
 
 #include <cstdint>
+#include <memory>
 #include <string>
 
 class Shader {
 public:
-    Shader(); // Basic shader
-    Shader(const std::string& vertexPath, const std::string& fragmentPath);
+    typedef std::shared_ptr<Shader> Ptr; // Ref count - prevent destructor from deleting shader program
+
+    Shader() = delete; // Must provide vertex and fragment shader paths
+    Shader(const Shader&) = delete; // id_ is unique
+    Shader(const std::string& vertexPath, const std::string& fragmentPath); // TODO: Improve error handling
+    ~Shader();
     void Use();
     void SetBool(const std::string& name, bool value) const;
     void SetInt(const std::string& name, int value) const;

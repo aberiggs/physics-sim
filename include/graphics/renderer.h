@@ -15,5 +15,5 @@ public:
     void Render(const std::vector<RenderObject::Ptr> render_queue, const Camera& camera);
 
 private:
-    std::vector<Shader> shaders_;
+    std::vector<Shader::Ptr> shaders_;
 };

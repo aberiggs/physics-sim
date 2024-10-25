@@ -1,46 +1,73 @@
 #include "graphics/shader.h" // self
 
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+
+#include <filesystem>
+
 #include "glad/glad.h"
 
-Shader::Shader() : id_ {} {
-    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+Shader::Shader(const std::string& vertex_path, const std::string& fragment_path) {
+    unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
+    unsigned int fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 
-    const char* vertexShaderSource = R"(
-        #version 330 core
-        layout (location = 0) in vec2 aPos;
+    // Read shader source from file
+    std::string vertex_shader_src;
+    std::string fragment_shader_src;
+    std::ifstream vertex_file;
+    std::ifstream fragment_file;
 
-        uniform mat4 view;
-        uniform mat4 projection;
-        uniform mat4 model;
+    vertex_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    fragment_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
-        void main() {
-            gl_Position = projection * view * model * vec4(aPos.x, aPos.y, 0.0, 1.0);
-        }
-    )";
+    // Read vertex shader
+    try {
+        vertex_file.open(std::string(SHADER_DIR) + vertex_path);
+        std::stringstream vertex_stream;
+        vertex_stream << vertex_file.rdbuf();
+        vertex_file.close();
+        vertex_shader_src = vertex_stream.str();
+    } catch (std::ifstream::failure& e) {
+        std::cout << "Failed to read vertex shader file: " << vertex_path << std::endl;
+        std::cout << e.what() << std::endl;
+    }
 
-    const char* fragmentShaderSource = R"(
-        #version 330 core
-        out vec4 FragColor;
-        void main() {
-            FragColor = vec4(1.0, 1.0, 0.3, 1.0);
-        }
-    )";
+    std::cout << "Read vertex shader" << std::endl;
+    // Read fragment shader
+    try {
+        fragment_file.open(std::string(SHADER_DIR) + fragment_path);
+        std::stringstream fragment_stream;
+        fragment_stream << fragment_file.rdbuf();
+        fragment_file.close();
+        fragment_shader_src = fragment_stream.str();
+    } catch (std::ifstream::failure& e) {
+        std::cout << "Failed to read fragment shader file: " << fragment_path << std::endl;
+        std::cout << e.what() << std::endl;
+    }
 
-    glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-    glCompileShader(vertexShader);
+    const char* vertex_shader_src_cstr = vertex_shader_src.c_str();
+    glShaderSource(vertex_shader, 1, &vertex_shader_src_cstr, nullptr);
+    glCompileShader(vertex_shader);
 
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-    glCompileShader(fragmentShader);
+    const char* fragment_shader_src_cstr = fragment_shader_src.c_str();
+    glShaderSource(fragment_shader, 1, &fragment_shader_src_cstr, nullptr);
+    glCompileShader(fragment_shader);
 
     id_ = glCreateProgram();
-    glAttachShader(id_, vertexShader);
-    glAttachShader(id_, fragmentShader);
+    glAttachShader(id_, vertex_shader);
+    glAttachShader(id_, fragment_shader);
+
     glLinkProgram(id_);
 
     // Delete shaders since they are already linked to the program
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+    glDeleteShader(vertex_shader);
+    glDeleteShader(fragment_shader);
+}
+
+Shader::~Shader() {
+    glDeleteProgram(id_);
 }
 
 void Shader::Use() {

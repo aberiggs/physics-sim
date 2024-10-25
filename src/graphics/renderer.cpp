@@ -8,7 +8,8 @@ Renderer::Renderer() : shaders_ {} {
 }
 
 void Renderer::Init() {
-    shaders_.push_back(Shader()); // Basic shader
+    shaders_.push_back(std::make_shared<Shader>("basic2d.vert",
+                                                "basic2d.frag")); // Basic shader
     // In future, we could compile every shader found in the shaders folder
 }
 
@@ -20,14 +21,14 @@ void Renderer::Render(const std::vector<RenderObject::Ptr> render_queue, const C
 
     auto shader = shaders_[0]; // Basic shader
     for (const auto& obj : render_queue) {
-        shader.Use();
+        shader->Use();
         
         // Apply transformations
-        shader.SetMat4("view", glm::value_ptr(camera.GetViewMatrix()));
-        shader.SetMat4("projection", glm::value_ptr(camera.GetProjectionMatrix()));
+        shader->SetMat4("view", glm::value_ptr(camera.GetViewMatrix()));
+        shader->SetMat4("projection", glm::value_ptr(camera.GetProjectionMatrix()));
         auto model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(obj->GetPosition(), 0.0f));
-        shader.SetMat4("model", glm::value_ptr(model));
+        shader->SetMat4("model", glm::value_ptr(model));
 
         obj->Draw();
     }

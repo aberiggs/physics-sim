@@ -22,6 +22,10 @@ file (GLOB SOURCES
     src/external/glad.c
 )
 
+# Configure shaders path
+add_compile_definitions(SHADER_DIR="${CMAKE_SOURCE_DIR}/shaders/")
+# file(COPY "${CMAKE_SOURCE_DIR}/shaders" DESTINATION "${CMAKE_BINARY_DIR}/bin")
+
 # Add executable target
 add_executable(orbital_simulator ${SOURCES})
 
