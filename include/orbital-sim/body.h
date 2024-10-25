@@ -1,7 +1,7 @@
 #pragma once
 
-#include "orbital-sim/render_object.h"
 #include "glm/glm.hpp"
+#include "graphics/render_object.h"
 
 #include <memory>
 

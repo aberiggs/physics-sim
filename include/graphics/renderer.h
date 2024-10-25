@@ -1,8 +1,9 @@
 #pragma once
 
-#include "orbital-sim/body.h"
-#include "orbital-sim/camera.h"
-#include "orbital-sim/shader.h"
+#include "graphics/render_object.h"
+#include "graphics/camera.h"
+#include "graphics/shader.h"
+
 #include <vector>
 
 

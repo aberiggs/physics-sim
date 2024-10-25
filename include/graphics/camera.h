@@ -8,6 +8,7 @@ public:
     glm::mat4 GetViewMatrix() const;
     glm::mat4 GetProjectionMatrix() const;
     void Update(float dt);
+    void SetPosition(const glm::vec3& position);
 
 private:
     glm::vec3 position_;

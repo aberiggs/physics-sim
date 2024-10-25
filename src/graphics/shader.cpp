@@ -1,8 +1,6 @@
-#include "orbital-sim/shader.h" // self
+#include "graphics/shader.h" // self
 
 #include "glad/glad.h"
-
-#include <iostream>
 
 Shader::Shader() : id_ {} {
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);

@@ -1,4 +1,4 @@
-#include "orbital-sim/window.h" // self
+#include "graphics/window.h" // self
 
 #include <iostream>
 

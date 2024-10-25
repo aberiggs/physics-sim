@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project name and version
-project(orbital-sim VERSION 0.0)
+project(physics-sim VERSION 0.0)
 
 # C++ standard
 set(CMAKE_CXX_STANDARD 20)
@@ -17,7 +17,8 @@ include_directories(include)
 
 # All source files
 file (GLOB SOURCES
-    src/*.cpp
+    src/orbital-sim/*.cpp
+    src/graphics/*.cpp
     src/external/glad.c
 )
 

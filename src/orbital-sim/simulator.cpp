@@ -2,15 +2,15 @@
 
 #include <iostream>
 
-Simulator::Simulator() : window_ {}, renderer_ {}, bodies_ {}, physics_engine_ {}, camera_ {glm::vec3(0.0f, 0.0f, 5.0f)} {
-    window_.Init();
-    renderer_.Init();
-    bodies_.push_back(std::make_shared<Body>(glm::vec2(0.0f, 0.0f), glm::vec2(0.0f, 0.0f), 1.986e30f, 0.00465047f));
-    bodies_.push_back(std::make_shared<Body>(glm::vec2(1.0f, 0.0f), glm::vec2(0.0f, 5e-5), 5.972e24f, 4.26352e-4));
+Simulator::Simulator() : Application(), bodies_ {}, physics_engine_ {} {
 }
 
 void Simulator::run() {
+    camera_.SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
 
+    bodies_.push_back(std::make_shared<Body>(glm::vec2(0.0f, 0.0f), glm::vec2(0.0f, 0.0f), 1.986e30f, 0.00465047f));
+    bodies_.push_back(std::make_shared<Body>(glm::vec2(1.0f, 0.0f), glm::vec2(0.0f, 5e-5), 5.972e24f, 4.26352e-4));
+    bodies_.push_back(std::make_shared<Body>(glm::vec2(-0.8f, 0.0f), glm::vec2(0.0f, -4e-5), 5.972e24f, 4.26352e-4));
     float speed = 5e3f;
     float lastFrameTime = 0.0f;
     while (!window_.ShouldClose()) {

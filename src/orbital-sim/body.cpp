@@ -1,13 +1,12 @@
 #include "orbital-sim/body.h" // self
 
-#include "glad/glad.h"
+#include <iostream>
+#include <vector>
 
+#include "glad/glad.h"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "orbital-sim/physics_engine.h"
-
-#include <iostream>
-#include <vector>
 
 std::vector<float> GenerateCircleVertices(float radius, int numVertices) {
     constexpr float scale = 2e1f;

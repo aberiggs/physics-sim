@@ -2,7 +2,6 @@
 
 #include "orbital-sim/simulator.h"
 
-
 int main() {
     std::cout << "Starting simulator...\n";
     Simulator simulator {};

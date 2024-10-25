@@ -1,7 +1,5 @@
 #include "orbital-sim/physics_engine.h" // self
 
-#include <iostream>
-
 void PhysicsEngine::ApplyForces(std::vector<Body::Ptr> bodies) {
     ApplyOrbitalForces(bodies);
 }
@@ -15,7 +13,6 @@ void PhysicsEngine::ApplyOrbitalForces(std::vector<Body::Ptr> bodies) {
             glm::vec2 direction = other->GetPosition() - body->GetPosition();
             float distance = glm::length(direction) * kAU_; // Convert to meters
             float force = (kG_ * body->GetMass()) * (other->GetMass() / (distance * distance));
-            std::cout << "Force: " << force << std::endl;
             glm::vec2 forceVector = force * glm::normalize(direction);
             body->ApplyForce(forceVector);
         }

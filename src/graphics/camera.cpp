@@ -1,4 +1,4 @@
-#include "orbital-sim/camera.h" // self
+#include "graphics/camera.h" // self
 
 #include "glm/gtc/matrix_transform.hpp"
 
@@ -16,6 +16,10 @@ glm::mat4 Camera::GetProjectionMatrix() const {
 
 void Camera::Update(float dt) {
     // Not necessary right now 
+}
+
+void Camera::SetPosition(const glm::vec3& position) {
+    position_ = position;
 }
 
 void Camera::UpdateCameraVectors() {

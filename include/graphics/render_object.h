@@ -1,7 +1,7 @@
 #pragma once
 
 #include "glm/glm.hpp"
-#include "orbital-sim/shader.h" 
+#include "graphics/shader.h" 
 
 #include <cstdint>
 #include <memory>

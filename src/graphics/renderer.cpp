@@ -1,10 +1,8 @@
-#include "orbital-sim/renderer.h" // self
+#include "graphics/renderer.h" // self
 
 #include "glad/glad.h"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-
-#include <iostream>
 
 Renderer::Renderer() : shaders_ {} {
 }
