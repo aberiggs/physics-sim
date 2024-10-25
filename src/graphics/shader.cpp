@@ -5,8 +5,7 @@
 #include <sstream>
 #include <string>
 
-#include <filesystem>
-
+#include "config.h"
 #include "glad/glad.h"
 
 Shader::Shader(const std::string& vertex_path, const std::string& fragment_path) {
@@ -34,7 +33,6 @@ Shader::Shader(const std::string& vertex_path, const std::string& fragment_path)
         std::cout << e.what() << std::endl;
     }
 
-    std::cout << "Read vertex shader" << std::endl;
     // Read fragment shader
     try {
         fragment_file.open(std::string(SHADER_DIR) + fragment_path);

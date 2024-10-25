@@ -4,7 +4,6 @@
 #include "orbital-sim/body.h"
 #include "orbital-sim/physics_engine.h"
 
-#include <memory>
 #include <vector>
 
 class Simulator : public Application {

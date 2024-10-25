@@ -8,9 +8,9 @@ Simulator::Simulator() : Application(), bodies_ {}, physics_engine_ {} {
 void Simulator::run() {
     camera_.SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
 
-    bodies_.push_back(std::make_shared<Body>(glm::vec2(0.0f, 0.0f), glm::vec2(0.0f, 0.0f), 1.986e30f, 0.00465047f));
-    bodies_.push_back(std::make_shared<Body>(glm::vec2(1.0f, 0.0f), glm::vec2(0.0f, 5e-5), 5.972e24f, 4.26352e-4));
-    bodies_.push_back(std::make_shared<Body>(glm::vec2(-0.8f, 0.0f), glm::vec2(0.0f, -4e-5), 5.972e24f, 4.26352e-4));
+    bodies_.push_back(std::make_shared<Body>(glm::vec2(0.0f, 0.0f), glm::vec2(0.0f, 0.0f), 1.986e30f, 0.0465047f));
+    bodies_.push_back(std::make_shared<Body>(glm::vec2(1.0f, 0.0f), glm::vec2(0.0f, 5e-5), 5.972e24f, 4.26352e-3));
+    bodies_.push_back(std::make_shared<Body>(glm::vec2(-0.8f, 0.0f), glm::vec2(0.0f, -4e-5), 5.972e24f, 4.26352e-3));
     float speed = 5e3f;
     float lastFrameTime = 0.0f;
     while (!window_.ShouldClose()) {
@@ -29,11 +29,8 @@ void Simulator::run() {
         }
 
         // Render
-        std::vector<RenderObject::Ptr> render_queue; // Objects we'd like to render
-        for (auto& body : bodies_) {
-            render_queue.push_back(body);
-        }
-        renderer_.Render(render_queue, camera_);
+        renderer_.Submit(bodies_);
+        renderer_.Render(camera_);
         window_.SwapBuffers();
         window_.PollEvents();
     }

@@ -1,17 +1,15 @@
 #pragma once
 
 #include "glm/glm.hpp"
-#include "graphics/render_object.h"
+#include "graphics/shapes/circle.h"
 
 #include <memory>
 
-// The assumption is that all bodies are circular
-class Body : public RenderObject {
+class Body : public Circle {
 public:
     typedef std::shared_ptr<Body> Ptr;
 
     Body(const glm::vec2& position, const glm::vec2& velocity, float mass, float radius);
-    void Draw() override;
     void Update(float dt);
     void ApplyForce(const glm::vec2& force);
     float GetMass() const { return mass_; }
