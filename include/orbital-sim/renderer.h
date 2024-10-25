@@ -1,6 +1,7 @@
 #pragma once
 
 #include "orbital-sim/body.h"
+#include "orbital-sim/camera.h"
 #include "orbital-sim/shader.h"
 #include <vector>
 
@@ -10,7 +11,7 @@ public:
     Renderer();
 
     void Init();
-    void Render(std::vector<RenderObject::Ptr> render_queue);
+    void Render(const std::vector<RenderObject::Ptr> render_queue, const Camera& camera);
 
 private:
     std::vector<Shader> shaders_;

@@ -14,7 +14,7 @@ void Renderer::Init() {
     // In future, we could compile every shader found in the shaders folder
 }
 
-void Renderer::Render(const std::vector<RenderObject::Ptr> render_queue) {
+void Renderer::Render(const std::vector<RenderObject::Ptr> render_queue, const Camera& camera) {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -23,7 +23,10 @@ void Renderer::Render(const std::vector<RenderObject::Ptr> render_queue) {
     auto shader = shaders_[0]; // Basic shader
     for (const auto& obj : render_queue) {
         shader.Use();
+        
         // Apply transformations
+        shader.SetMat4("view", glm::value_ptr(camera.GetViewMatrix()));
+        shader.SetMat4("projection", glm::value_ptr(camera.GetProjectionMatrix()));
         auto model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(obj->GetPosition(), 0.0f));
         shader.SetMat4("model", glm::value_ptr(model));
