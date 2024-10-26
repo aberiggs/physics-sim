@@ -43,7 +43,7 @@ bool Window::Init(const std::string& window_name) {
     });
 
     // Other options
-    // glfwSwapInterval(0); // disable vsync
+    glfwSwapInterval(0); // disable vsync
 
     return true;
 }

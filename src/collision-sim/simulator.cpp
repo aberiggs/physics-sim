@@ -1,34 +1,35 @@
 #include "collision-sim/simulator.h" // self
 
+Simulator::Simulator() : Application(), particles_(), bounds_(nullptr) {}
+
 void Simulator::run() {
     camera_.SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
 
-    RigidCircle::Ptr circle1 = std::make_shared<RigidCircle>(glm::vec2(-0.5f, 0.1f), 0.1f, 1.0f, glm::vec2(0.3f, 0.0f));
-    RigidCircle::Ptr circle2 = std::make_shared<RigidCircle>(glm::vec2(0.5f, 0.0f), 0.075f, 1.00f, glm::vec2(-0.3f, 0.0f));
+    bounds_ = std::make_shared<Rect>(glm::vec2(-1.0f, -1.0f), glm::vec2(2.0f, 2.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
-    circles_.push_back(circle1);
-    circles_.push_back(circle2);
+    particles_ = Particle::GenerateRandomParticles(1000, bounds_);
 
-    float speed = 1.0f;
+    float sim_speed = 1.0f;
     float lastFrameTime = 0.0f;
     while (!window_.ShouldClose()) {
         float currentTime = glfwGetTime(); // Maybe move to window class?
         float deltaTime = currentTime - lastFrameTime;
         lastFrameTime = currentTime;
-        deltaTime *= speed;
+        deltaTime *= sim_speed;
 
-        for (int i = 0; i < circles_.size(); i++) {
-            for (int j = i + 1; j < circles_.size(); j++) {
-                circles_[i]->CheckCollision(circles_[j]);
+        std::cout << "FPS: " << 1.0f / deltaTime << std::endl;
+
+        // Collision detection
+        for (int i = 0; i < particles_.size(); i++) {
+            for (int j = i + 1; j < particles_.size(); j++) {
+                particles_[i]->CheckParticleCollision(particles_[j]);
             }
+            particles_[i]->Update(deltaTime);
+            particles_[i]->CheckWallCollision(bounds_);
         }
 
-        for (auto& circle : circles_) {
-            circle->Update(deltaTime);
-        }
-
-
-        renderer_.Submit(circles_);
+        renderer_.Submit(bounds_);
+        renderer_.Submit(particles_);
         renderer_.Render(camera_);
 
 
