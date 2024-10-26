@@ -1,5 +1,7 @@
 #include "collision-sim/simulator.h" // self
 
+#include <chrono>
+
 Simulator::Simulator() : Application(), particles_(), bounds_(nullptr) {}
 
 void Simulator::run() {
@@ -7,7 +9,7 @@ void Simulator::run() {
 
     bounds_ = std::make_shared<Rect>(glm::vec2(-1.0f, -1.0f), glm::vec2(2.0f, 2.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
-    particles_ = Particle::GenerateRandomParticles(300, bounds_);
+    particles_ = Particle::GenerateRandomParticles(5000, bounds_);
 
     float sim_speed = 1.0f;
     float lastFrameTime = 0.0f;
@@ -17,21 +19,29 @@ void Simulator::run() {
         lastFrameTime = currentTime;
         deltaTime *= sim_speed;
 
-        std::cout << "FPS: " << 1.0f / deltaTime << std::endl;
+        // std::cout << "FPS: " << 1.0f / deltaTime << std::endl;
 
         // Collision detection
-        for (int i = 0; i < particles_.size(); i++) {
-            for (int j = i + 1; j < particles_.size(); j++) {
-                particles_[i]->CheckParticleCollision(particles_[j]);
-            }
-            particles_[i]->Update(deltaTime);
-            particles_[i]->CheckWallCollision(bounds_);
+        auto start_sim = std::chrono::high_resolution_clock::now();
+        Particle::HandleParticleCollisions(particles_);
+
+        // Update and enforce wall collisions
+        for (auto particle : particles_) {
+            particle->Update(deltaTime);
+            particle->CheckWallCollision(bounds_);
         }
+        auto end_sim = std::chrono::high_resolution_clock::now();
 
         renderer_.Submit(bounds_);
         renderer_.Submit(particles_);
+        auto start_render = std::chrono::high_resolution_clock::now();
         renderer_.Render(camera_);
+        auto end_render = std::chrono::high_resolution_clock::now();
 
+        auto sim_duration = std::chrono::duration_cast<std::chrono::microseconds>(end_sim - start_sim);
+        auto render_duration = std::chrono::duration_cast<std::chrono::microseconds>(end_render - start_render);
+    
+        std::cout << "Sim time: " << sim_duration.count() << "us | Render time: " << render_duration.count() << "us\n"; 
 
         window_.SwapBuffers();
         window_.PollEvents();
