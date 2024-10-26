@@ -15,7 +15,7 @@ public:
     RenderObject() = delete; // No default constructor
     virtual ~RenderObject() = default; // TODO: Clean up VAO and VBO
 
-    virtual void Draw() = 0;
+    virtual void Draw(Shader::Ptr shader) = 0; // TODO: Reconsider passing shader as a parameter
 
     glm::mat4 GetModelMatrix() const;
 

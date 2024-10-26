@@ -60,18 +60,22 @@ void Particle::SetPosition(const glm::vec2& position) {
     Circle::SetPosition(position);
 }
 
-std::vector<Particle::Ptr> Particle::GenerateRandomParticles(int num_particles, const Rect::Ptr bounds) {
+std::vector<Particle::Ptr> Particle::GenerateRandomParticles(int num_particles, const Rect::Ptr bounds, float max_speed) {
+    srand(time(nullptr));
+
+    // TODO: Make these parameters
+    float radius = 0.01f;
+    float mass = 1.0f;
+
     std::vector<Particle::Ptr> particles;
     for (int i = 0; i < num_particles; i++) {
-        float radius = 0.005f;
-        float mass = 1.0f;
         glm::vec2 position = glm::vec2(
             bounds->GetTl().x + radius + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (bounds->GetSize().x - 2 * radius))),
             bounds->GetTl().y + radius + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (bounds->GetSize().y - 2 * radius)))
         );
         glm::vec2 velocity = glm::vec2(
-            static_cast <float> (rand()) / static_cast <float> (RAND_MAX),
-            static_cast <float> (rand()) / static_cast <float> (RAND_MAX)
+            max_speed * (static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 0.5f),
+            max_speed * (static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 0.5f)
         );
         glm::vec3 color = glm::vec3(
             static_cast <float> (rand()) / static_cast <float> (RAND_MAX),

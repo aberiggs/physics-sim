@@ -26,8 +26,11 @@ Rect::Rect(const glm::vec2& tl, const glm::vec2& size, const glm::vec3& color) :
     num_vertices_ = 4;
 }
 
-void Rect::Draw() {
+void Rect::Draw(Shader::Ptr shader) {
     glBindVertexArray(vao_);
+    // Set specific shader uniforms
+    shader->SetVec3("color", color_);
+    // Draw the rect
     glDrawArrays(GL_LINE_LOOP, 0, num_vertices_);
     glBindVertexArray(0);
 }

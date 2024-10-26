@@ -8,7 +8,7 @@ public:
 
     Rect(const glm::vec2& tl, const glm::vec2& size, const glm::vec3& color = glm::vec3(1.0f, 1.0f, 1.0f));
 
-    void Draw() override;
+    void Draw(Shader::Ptr shader) override;
 
     // Gets the top left corner of the rect
     glm::vec2 GetTl() const;

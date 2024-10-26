@@ -7,7 +7,7 @@ void Simulator::run() {
 
     bounds_ = std::make_shared<Rect>(glm::vec2(-1.0f, -1.0f), glm::vec2(2.0f, 2.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
-    particles_ = Particle::GenerateRandomParticles(1000, bounds_);
+    particles_ = Particle::GenerateRandomParticles(300, bounds_);
 
     float sim_speed = 1.0f;
     float lastFrameTime = 0.0f;

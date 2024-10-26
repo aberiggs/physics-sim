@@ -40,8 +40,11 @@ Circle::Circle(const glm::vec2& position, float radius, const glm::vec3& color) 
     glBindVertexArray(0);
 }
 
-void Circle::Draw() {
+void Circle::Draw(Shader::Ptr shader) {
     glBindVertexArray(vao_); // Could make this conditional for batching?
+    // Set specific shader uniforms
+    shader->SetVec3("color", color_);
+    // Draw the circle
     glDrawArrays(GL_TRIANGLE_FAN, 0, num_vertices_); 
     glBindVertexArray(0); // Unbind VAO
 }

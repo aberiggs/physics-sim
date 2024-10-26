@@ -20,7 +20,7 @@ public:
     glm::vec2 GetPosition() const;
     void SetPosition(const glm::vec2& position);
 
-    static std::vector<Particle::Ptr> GenerateRandomParticles(int num_particles, const Rect::Ptr bounds);
+    static std::vector<Particle::Ptr> GenerateRandomParticles(int num_particles, const Rect::Ptr bounds, float max_speed = 1.0f);
 
 private: 
     float mass_;

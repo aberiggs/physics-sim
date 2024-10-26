@@ -7,7 +7,7 @@ Renderer::Renderer() : render_queue_(), shaders_() {
 }
 
 void Renderer::Init() {
-    shaders_.push_back(std::make_shared<Shader>("basic2d.vert", "basic2d.frag")); 
+    shaders_.push_back(std::make_shared<Shader>("colored_shape.vert", "colored_shape.frag")); 
 }
 
 void Renderer::Render(const Camera& camera) {
@@ -22,7 +22,7 @@ void Renderer::Render(const Camera& camera) {
         shader->SetMat4("projection", glm::value_ptr(camera.GetProjectionMatrix()));
         shader->SetMat4("model", glm::value_ptr(obj->GetModelMatrix()));
 
-        obj->Draw();
+        obj->Draw(shader);
     }
     
     render_queue_.clear();
