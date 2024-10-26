@@ -11,13 +11,13 @@ void Simulator::run() {
     bodies_.push_back(std::make_shared<Body>(glm::vec2(0.0f, 0.0f), glm::vec2(0.0f, 0.0f), 1.986e30f, 0.0465047f));
     bodies_.push_back(std::make_shared<Body>(glm::vec2(1.0f, 0.0f), glm::vec2(0.0f, 5e-5), 5.972e24f, 4.26352e-3));
     bodies_.push_back(std::make_shared<Body>(glm::vec2(-0.8f, 0.0f), glm::vec2(0.0f, -4e-5), 5.972e24f, 4.26352e-3));
+
     float speed = 5e3f;
     float lastFrameTime = 0.0f;
     while (!window_.ShouldClose()) {
         float currentTime = glfwGetTime(); // Maybe move to window class?
         float deltaTime = currentTime - lastFrameTime;
         lastFrameTime = currentTime;
-
         deltaTime *= speed;
 
         // std::cout << "FPS: " << 1.0f / deltaTime << std::endl;

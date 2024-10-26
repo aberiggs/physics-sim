@@ -10,9 +10,12 @@ public:
 
     Circle(const glm::vec2& position, float radius, const glm::vec3& color = glm::vec3(1.0f, 1.0f, 1.0f));
     virtual void Draw() override;
+
     float GetRadius() const;
-    void SetColor(const glm::vec3& color);
+
     glm::vec3 GetColor() const;
+    void SetColor(const glm::vec3& color);
+
 private: 
     float radius_;
     glm::vec3 color_;

@@ -18,7 +18,9 @@ public:
     virtual void Draw() = 0;
 
     glm::mat4 GetModelMatrix() const;
+
     glm::vec2 GetPosition() const;
+    void SetPosition(const glm::vec2& position);
 
 protected:
     RenderObject(const glm::vec2& position);

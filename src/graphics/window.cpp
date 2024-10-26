@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-bool Window::Init() {
+bool Window::Init(const std::string& window_name) {
     if (!glfwInit()) {
         return false;
     }
@@ -15,7 +15,7 @@ bool Window::Init() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // For MacOS 
 #endif
 
-    window_ = glfwCreateWindow(800, 800, "Orbital Simulator", NULL, NULL);
+    window_ = glfwCreateWindow(800, 800, window_name.c_str(), NULL, NULL);
     if (!window_) {
         std::cout << "Failed to create GLFW window\n";
         glfwTerminate();
@@ -31,9 +31,18 @@ bool Window::Init() {
     } 
 
     glfwSetFramebufferSizeCallback(window_, [](GLFWwindow* window, int width, int height) {
-        glViewport(0, 0, width, height);
+        window = window; // Unused
+        // Get aspect ratio - TODO: come back to this
+        // int old_width, old_height;
+        // glfwGetWindowSize(window, &old_width, &old_height);
+        // float aspect_ratio = static_cast<float>(old_width) / old_height;
+
+        auto min_dim = std::min(width, height);
+        // min_dim x min_dim viewport centered in the window
+        glViewport((width - min_dim) / 2, (height - min_dim) / 2, min_dim, min_dim);
     });
 
+    // Other options
     // glfwSwapInterval(0); // disable vsync
 
     return true;

@@ -45,3 +45,15 @@ void Circle::Draw() {
     glDrawArrays(GL_TRIANGLE_FAN, 0, num_vertices_); 
     glBindVertexArray(0); // Unbind VAO
 }
+
+float Circle::GetRadius() const {
+    return radius_;
+}
+
+glm::vec3 Circle::GetColor() const {
+    return color_;
+}
+
+void Circle::SetColor(const glm::vec3& color) {
+    color_ = color;
+}

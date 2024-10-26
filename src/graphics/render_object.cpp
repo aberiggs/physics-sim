@@ -14,3 +14,7 @@ glm::mat4 RenderObject::GetModelMatrix() const {
 glm::vec2 RenderObject::GetPosition() const {
     return position_;
 }
+
+void RenderObject::SetPosition(const glm::vec2& position) {
+    position_ = position;
+}
