@@ -8,6 +8,9 @@ project(physics-sim VERSION 0.0)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+# Create compile commands for clangd
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Add external dependencies
 find_package(glfw3 3.3 REQUIRED)
 
